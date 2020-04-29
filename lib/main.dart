@@ -20,13 +20,33 @@ var _members = [];
 final _biggerFont = const TextStyle(fontSize: 18.0);
 
 class GHFlutterState extends State<GHFlutter> {
+
+  @override
+  void initState() {
+    super.initState();
+
+    _loadData();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(Strings.appTitle),
       ),
-      body: Text(Strings.appTitle),
+      body: ListView.builder(
+        padding: const EdgeInsets.all(16.0),
+        itemCount: _members.length,
+        itemBuilder: (BuildContext context, int position) {
+          return _buildRow(position);
+  }),
+
+    );
+  }
+
+  Widget _buildRow(int i) {
+    return ListTile(
+      title: Text("${_members[i]["login"]}", style: _biggerFont)
     );
   }
 
