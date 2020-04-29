@@ -16,6 +16,8 @@ class GHFlutterApp extends StatelessWidget {
   }
 }
 
+var _members = [];
+final _biggerFont = const TextStyle(fontSize: 18.0);
 
 class GHFlutterState extends State<GHFlutter> {
   @override
@@ -27,6 +29,14 @@ class GHFlutterState extends State<GHFlutter> {
       body: Text(Strings.appTitle),
     );
   }
+
+  _loadData() async {
+  String dataURL = "https://api.github.com/orgs/raywenderlich/members";
+  http.Response response = await http.get(dataURL);
+  setState(() {
+    _members = json.decode(response.body);
+  });
+ } 
 }
 
 class GHFlutter extends StatefulWidget {
